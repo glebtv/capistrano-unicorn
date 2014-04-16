@@ -9,7 +9,7 @@ Taken from https://github.com/sosedoff/capistrano-unicorn and adapted to work wi
 issue if there is no existing relevant one. There are a lot of forks--we'd love
 to reabsorb some of the issues/solutions the community has encountered.
 
-[![Gem Version](https://badge.fury.io/rb/sepastian-capistrano3-unicorn.png)](http://badge.fury.io/rb/sepastian-capistrano3-unicorn)
+[![Gem Version](https://badge.fury.io/rb/glebtv-capistrano-unicorn.svg)](http://badge.fury.io/rb/glebtv-capistrano-unicorn)
 
 ## Usage
 
@@ -21,7 +21,7 @@ Add the library to your `Gemfile`:
 
 ```ruby
 group :development do
-  gem 'sepastian-capistrano3-unicorn', :require => false
+  gem 'glebtv-capistrano-unicorn', :require => false
 end
 ```
 
