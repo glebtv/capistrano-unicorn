@@ -2,11 +2,11 @@
 require File.expand_path("../lib/capistrano/unicorn/version", __FILE__)
 
 Gem::Specification.new do |spec|
-  spec.name        = "capistrano-unicorn"
+  spec.name        = "glebtv-capistrano-unicorn"
   spec.version     = CapistranoUnicorn::VERSION.dup
-  spec.author      = "Sebastian Gassner, Dan Sosedoff"
-  spec.email       = "sebastian.gassner@gmail.com"
-  spec.homepage    = "https://github.com/sepastian/capistrano-unicorn"
+  spec.author      = "glebtv, Sebastian Gassner, Dan Sosedoff"
+  spec.email       = "glebtv@gmail.com"
+  spec.homepage    = "https://github.com/glebtv/capistrano-unicorn"
   spec.summary     = %q{Unicorn integration for Capistrano 3.x}
   spec.description = %q{Capistrano 3.x plugin that integrates Unicorn server tasks.}
   spec.license     = "MIT"
@@ -18,5 +18,5 @@ Gem::Specification.new do |spec|
 
   spec.add_development_dependency "rake"
   spec.add_development_dependency "unicorn"
-  spec.add_runtime_dependency     "capistrano", "~> 3"
+  spec.add_runtime_dependency     "capistrano", "~> 3.0"
 end
