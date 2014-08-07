@@ -104,10 +104,10 @@ module CapistranoUnicorn
     # Start the Unicorn server
     #
     def start_unicorn
-      if test("[ -e #{fetch(:unicorn_config_file_path)} ]")
-        unicorn_config_file_path = fetch(:unicorn_config_file_path)
-      elsif test("[ -e #{fetch(:unicorn_config_stage_file_path)} ]")
+      if test("[ -e #{fetch(:unicorn_config_stage_file_path)} ]")
         unicorn_config_file_path = fetch(:unicorn_config_stage_file_path)
+      elsif test("[ -e #{fetch(:unicorn_config_file_path)} ]")
+        unicorn_config_file_path = fetch(:unicorn_config_file_path)
       else
         fail "Config file for \"#{fetch(:unicorn_env)}\" environment was not found at either \"#{fetch(:unicorn_config_file_path)}\" or \"#{fetch(:unicorn_config_stage_file_path)}\""
       end
