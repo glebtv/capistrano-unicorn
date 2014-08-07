@@ -73,13 +73,12 @@ namespace :unicorn do
         unicorn_config_stage_rel_file_path #{fetch :unicorn_config_stage_rel_file_path}
 
         # Absolute paths
-        app_path                  #{fetch :app_path}
-        unicorn_pid               #{fetch :unicorn_pid}
-        #bundle_gemfile            #{fetch :bundle_gemfile}
-        unicorn_config_path       #{fetch :unicorn_config_path}
-        unicorn_config_file_path  #{fetch :unicorn_config_file_path}
-        unicorn_config_stage_file_path
-        ->                        "#{fetch :unicorn_config_stage_file_path}
+        app_path                       #{fetch :app_path}
+        unicorn_pid                    #{fetch :unicorn_pid}
+        #bundle_gemfile                #{fetch :bundle_gemfile}
+        unicorn_config_path            #{fetch :unicorn_config_path}
+        unicorn_config_file_path       #{fetch :unicorn_config_file_path}
+        unicorn_config_stage_file_path #{fetch :unicorn_config_stage_file_path}
       EOF
     end
   end
