@@ -9,7 +9,7 @@ Taken from https://github.com/sosedoff/capistrano-unicorn and adapted to work wi
 
 ### Setup
 
-Add the library to your `Gemfile`:
+**Add the library to your `Gemfile`:**
 
 ```ruby
 group :development do
@@ -17,13 +17,13 @@ group :development do
 end
 ```
 
-Add it to `Capfile`:
+**Add it to `Capfile`:**
 
 ```ruby
 require 'capistrano/unicorn'
 ```
 
-Add unicorn restart task hook:
+**Add unicorn restart task hook:**
 
 If your app IS NOT preloaded (preload_app false, default):
 
