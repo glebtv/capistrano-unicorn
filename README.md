@@ -25,10 +25,22 @@ require 'capistrano/unicorn'
 
 Add unicorn restart task hook:
 
+If your app IS NOT preloaded (preload_app false, default):
+
 ```ruby
-after 'deploy:restart', 'unicorn:reload'    # app IS NOT preloaded
-after 'deploy:restart', 'unicorn:restart'   # app preloaded
-after 'deploy:restart', 'unicorn:duplicate' # before_fork hook implemented (zero downtime deployments)
+after 'deploy:publishing', 'unicorn:reload'
+```
+
+If your app is preloaded (preload_app true): 
+
+```ruby
+after 'deploy:publishing', 'unicorn:restart'
+```
+
+If you have before_fork unicorn hook for zero downtime deployments installed (preload_app true + before_hook), best option:
+
+```ruby
+after 'deploy:publishing', 'unicorn:duplicate'
 ```
 
 Create a new configuration file `config/unicorn.rb` or `config/unicorn/STAGE.rb`, 
