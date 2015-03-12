@@ -7,8 +7,6 @@ Taken from https://github.com/sosedoff/capistrano-unicorn and adapted to work wi
 
 ## Usage
 
-If you are upgrading from a previous version, please see the [NEWS file](NEWS.md).
-
 ### Setup
 
 Add the library to your `Gemfile`:
@@ -41,6 +39,9 @@ where stage is your deployment environment.
 Includes zero-downtime deployments
 
 [examples/rails3.rb](https://github.com/glebtv/capistrano-unicorn/blob/master/examples/rails3.rb). 
+
+Please READ all comments in the file if you are having problems.
+If you use AR you need to uncomment two lines in the file.
 
 Please refer to Unicorn documentation for more examples and configuration options.
 

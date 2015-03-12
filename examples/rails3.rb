@@ -39,8 +39,6 @@ before_exec do |server|
 end
 
 before_fork do |server, worker|
-  # при использовании preload_app = true здесь должно быть закрытие всех открытых сокетов
-
   # uncomment for AR
   # ActiveRecord::Base.connection.disconnect
   # Mongoid reconnects itself
