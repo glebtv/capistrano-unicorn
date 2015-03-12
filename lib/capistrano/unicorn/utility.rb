@@ -139,9 +139,7 @@ module CapistranoUnicorn
     end
 
     def unicorn_roles
-      # TODO proc necessary here?
       Proc.new{ fetch(:unicorn_roles, :app) }.call
-      #defer{ fetch(:unicorn_roles, :app) }
     end
   end
 end

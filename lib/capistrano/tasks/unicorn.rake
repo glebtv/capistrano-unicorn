@@ -85,28 +85,28 @@ namespace :unicorn do
 
   desc 'Start Unicorn master process'
   task :start do
-    on roles unicorn_roles, reject: lambda { |h| h.properties.no_release } do
+    on release_roles(unicorn_roles) do
       execute start_unicorn
     end
   end
 
   desc 'Stop Unicorn'
   task :stop do
-    on roles unicorn_roles, reject: lambda { |h| h.properties.no_release } do
+    on release_roles(unicorn_roles) do
       execute kill_unicorn('QUIT')
     end
   end
 
   desc 'Immediately shutdown Unicorn'
   task :shutdown do
-    on roles unicorn_roles, reject: lambda { |h| h.properties.no_release } do
+    on release_roles(unicorn_roles) do
       execute kill_unicorn('TERM')
     end
   end
 
   desc 'Restart Unicorn'
   task :restart do
-    on roles unicorn_roles, reject: lambda { |h| h.properties.no_release } do
+    on release_roles(unicorn_roles) do
       duplicate_unicorn
       execute :sleep, fetch(:unicorn_restart_sleep_time)
 
@@ -118,14 +118,14 @@ namespace :unicorn do
 
   desc 'Duplicate Unicorn'
   task :duplicate do
-    on roles unicorn_roles, reject: lambda { |h| h.properties.no_release } do
+    on release_roles(unicorn_roles) do
       duplicate_unicorn
     end
   end
 
   desc 'Reload Unicorn'
   task :reload do
-    on roles unicorn_roles, reject: lambda { |h| h.properties.no_release } do
+    on release_roles(unicorn_roles) do
       if unicorn_is_running?
         unicorn_send_signal('HUP')
       else

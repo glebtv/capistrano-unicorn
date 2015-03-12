@@ -3,12 +3,6 @@
 Capistrano 3.x plugin that integrates Unicorn tasks into capistrano deployment script.
 Taken from https://github.com/sosedoff/capistrano-unicorn and adapted to work with Capistrano 3.x.
 
-**Note: this code is not well tested, if anything fails, please report it. Use at your own risk.**
-
-**Developers:** Please consider contributing your forked changes, or opening an
-issue if there is no existing relevant one. There are a lot of forks--we'd love
-to reabsorb some of the issues/solutions the community has encountered.
-
 [![Gem Version](https://badge.fury.io/rb/glebtv-capistrano-unicorn.svg)](http://badge.fury.io/rb/glebtv-capistrano-unicorn)
 
 ## Usage
@@ -25,7 +19,7 @@ group :development do
 end
 ```
 
-And load it into your deployment script `config/deploy.rb`:
+Add it to `Capfile`:
 
 ```ruby
 require 'capistrano/unicorn'
@@ -42,7 +36,12 @@ after 'deploy:restart', 'unicorn:duplicate' # before_fork hook implemented (zero
 Create a new configuration file `config/unicorn.rb` or `config/unicorn/STAGE.rb`, 
 where stage is your deployment environment.
 
-Example config - [examples/rails3.rb](https://github.com/sosedoff/capistrano-unicorn/blob/master/examples/rails3.rb). 
+## Example config 
+
+Includes zero-downtime deployments
+
+[examples/rails3.rb](https://github.com/glebtv/capistrano-unicorn/blob/master/examples/rails3.rb). 
+
 Please refer to Unicorn documentation for more examples and configuration options.
 
 ### Deploy
@@ -50,15 +49,15 @@ Please refer to Unicorn documentation for more examples and configuration option
 First, make sure you're running the latest release:
 
 ```
-cap deploy
+cap production deploy
 ```
 
 Then you can test each individual task:
 
 ```
-cap unicorn:start
-cap unicorn:stop
-cap unicorn:reload
+cap production unicorn:start
+cap production unicorn:stop
+cap production unicorn:reload
 ```
 
 ## Configuration
@@ -106,72 +105,15 @@ are set correctly.
 To get a list of all capistrano tasks, run `cap -T`:
 
 ```
-cap unicorn:add_worker                # Add a new worker
-cap unicorn:remove_worker             # Remove amount of workers
-cap unicorn:reload                    # Reload Unicorn
-cap unicorn:restart                   # Restart Unicorn
-cap unicorn:show_vars                 # Debug Unicorn variables
-cap unicorn:shutdown                  # Immediately shutdown Unicorn
-cap unicorn:start                     # Start Unicorn master process
-cap unicorn:stop                      # Stop Unicorn
+cap production unicorn:add_worker                # Add a new worker
+cap production unicorn:remove_worker             # Remove amount of workers
+cap production unicorn:reload                    # Reload Unicorn
+cap production unicorn:restart                   # Restart Unicorn
+cap production unicorn:show_vars                 # Debug Unicorn variables
+cap production unicorn:shutdown                  # Immediately shutdown Unicorn
+cap production unicorn:start                     # Start Unicorn master process
+cap production unicorn:stop                      # Stop Unicorn
 ```
-
-## Tests
-
-To execute test suite run:
-
-```
-bundle exec rake test
-```
-
-### Multistage
-
-The issue here is that capistrano loads default configuration and then
-executes your staging task and overrides previously defined
-variables. The default environment before executing your stage task is
-set to `:production`, so it will use a wrong environment unless you
-take steps to ensure that `:rails_env` and `:unicorn_env` are
-set correctly.
-
-Let's say you have a scenario involving two deployment stages: staging
-and production.  You’ll need to add `config/deploy/staging.rb` and
-`config/deploy/production.rb` files.  However, it makes sense to
-adhere to DRY and avoid duplicating lines between the two files.  So
-it would be nicer to keep common settings in `config/deploy.rb`, and
-only put stuff in each staging definition file which is really
-specific to that staging environment.  Fortunately this can be done
-using the [lazy evaluation form of `set`](https://github.com/capistrano/capistrano/wiki/2.x-DSL-Configuration-Variables-Set).
-
-So `config/deploy.rb` file would contain something like:
-
-```ruby
-set :stages, %w(production staging)
-set :default_stage, "staging"
-require 'capistrano/ext/multistage'
-
-role(:web) { domain }
-role(:app) { domain }
-role(:db, :primary => true) { domain }
-
-set(:deploy_to)    { "/home/#{user}/#{application}/#{fetch :rails_env}" }
-set(:current_path) { File.join(deploy_to, current_dir) }
-```
-
-Then `config/deploy/production.rb` would contain something like:
-
-```ruby
-set :domain,      "app.mydomain.com"
-set :rails_env,   "production"
-```
-
-and `config/deploy/staging.rb` would only need to contain something like:
-
-```ruby
-set :domain,      "app.staging.mydomain.com"
-set :rails_env,   "staging"
-```
-
-Nice and clean!
 
 ## License
 
