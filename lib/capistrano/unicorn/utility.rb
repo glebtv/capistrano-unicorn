@@ -124,8 +124,14 @@ module CapistranoUnicorn
       puts 'Starting unicorn...'
 
       within fetch(:app_path) do
-        with rails_env: fetch(:rails_env), bundle_gemfile: fetch(:bundle_gemfile) do
-          execute :bundle, 'exec', fetch(:unicorn_bin), '-c', unicorn_config_file_path, '-E', fetch(:unicorn_rack_env), '-D', fetch(:unicorn_options)
+        if fetch(:bundle_gemfile).nil?
+          with rails_env: fetch(:rails_env) do
+            execute :bundle, 'exec', fetch(:unicorn_bin), '-c', unicorn_config_file_path, '-E', fetch(:unicorn_rack_env), '-D', fetch(:unicorn_options)
+          end
+        else
+          with rails_env: fetch(:rails_env), bundle_gemfile: fetch(:bundle_gemfile) do
+            execute :bundle, 'exec', fetch(:unicorn_bin), '-c', unicorn_config_file_path, '-E', fetch(:unicorn_rack_env), '-D', fetch(:unicorn_options)
+          end
         end
       end
     end

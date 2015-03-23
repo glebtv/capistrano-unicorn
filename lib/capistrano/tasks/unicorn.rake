@@ -6,7 +6,6 @@ include CapistranoUnicorn::Utility
 # See https://github.com/capistrano/capistrano/pull/605
 namespace :load do
   task :defaults do
-
     # Environments
     set :unicorn_env     , Proc.new{ fetch(:rails_env, 'production') }
     # Following recommendations from http://unicorn.bogomips.org/unicorn_1.html
